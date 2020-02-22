@@ -1,0 +1,22 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.9.7
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: build and push images
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            make build-image
+            make push-image
+workflows:
+  version: 2
+  build-master:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
