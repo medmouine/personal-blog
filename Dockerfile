@@ -12,7 +12,6 @@ RUN \
 WORKDIR /app
 COPY . .
 RUN yarn install && yarn cache clean
-
 RUN yarn build
 
 FROM socialengine/nginx-spa
